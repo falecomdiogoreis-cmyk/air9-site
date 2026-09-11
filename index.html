@@ -1,201 +1,487 @@
 <!DOCTYPE html>
-<html lang="pt-BR" class="scroll-smooth">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Air9 | Assessoria, Soluções e Negócios Governamentais</title>
-    
-    <!-- Tipografia Clean e Moderna (Inter) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <!-- Tailwind CSS via CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Configuração de Temas Tailwind -->
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        navy: '#0B132B',       /* Azul Marinho Escuro - Autoridade */
-                        navyLight: '#1C2541',  /* Variação de Azul */
-                        lead: '#3A506B',       /* Cinza Chumbo */
-                        accent: '#2563EB',     /* Azul Acento para CTA */
-                        accentHover: '#1D4ED8' /* Hover do CTA */
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        /* Estilos adicionais para garantir suavidade */
-        body { -webkit-font-smoothing: antialiased; }
-        .card-hover { transition: transform 0.3s ease, box-shadow 0.3s ease; }
-        .card-hover:hover { transform: translateY(-5px); box-shadow: 0 10px 30px -10px rgba(0,0,0,0.15); }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Air9 — Assessoria em licitações e negócios governamentais</title>
+<meta name="description" content="Assessoria em licitações públicas para empresas da Bahia. Do edital ao pagamento: radar, análise, habilitação, disputa e cobrança do contrato.">
+<meta name="theme-color" content="#16263F">
+<link rel="icon" href="air9-favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="air9-icone-192.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Air9 — Assessoria em licitações">
+<meta property="og:description" content="Do edital ao pagamento. Assessoria em licitações públicas para empresas da Bahia.">
+<meta property="og:image" content="air9-icone-512.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Spectral:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+<!-- ====================================================================
+     PAINEL DE CONFIGURAÇÃO
+     Altere só os valores entre aspas abaixo. Não mexa no resto do arquivo.
+     Depois de salvar, suba o arquivo de novo na hospedagem.
+     ==================================================================== -->
+<script>
+const CONFIG = {
+  // --- contato ---
+  whatsapp:      "5571982440983",          // só números, com 55 e DDD
+  whatsappTexto: "Olá, Diogo. Vi o site da Air9 e quero saber se há licitação aberta para o meu ramo.",
+  email:         "diogo@air9.com.br",
+  cidade:        "Camaçari, Bahia",
+
+  // --- empresa ---
+  razaoSocial:   "Air9 Soluções e Negócios Governamentais",
+  cnpj:          "",     // deixe "" para não exibir
+  responsavel:   "Diogo Reis",
+  cargo:         "Diretor",
+
+  // --- área de atuação (aparece no rodapé e no texto de contato) ---
+  regiao:        "Camaçari, Salvador, Feira de Santana e Região Metropolitana",
+
+  // --- prazo de resposta prometido no formulário de contato ---
+  prazoResposta: "24 horas",
+
+  // --- exemplo mostrado na primeira tela ---
+  // Troque por uma oportunidade real assim que tiver uma (sem dados sigilosos).
+  exemplo: {
+    orgao:      "Prefeitura Municipal de Camaçari",
+    objeto:     "Registro de preços — material de construção para manutenção de escolas",
+    modalidade: "Pregão eletrônico · registro de preços 12 meses",
+    valor:      "R$ 184.500,00",
+    prazo:      "11 dias para a sessão"
+  }
+};
+</script>
+
+<style>
+:root{
+  --tinta:#16263F;
+  --navy:#1F3864;
+  --azul:#2F5597;
+  --azul-claro:#AFC3E4;
+  --papel:#EDEDE7;
+  --papel-fundo:#F6F6F2;
+  --ocre:#B8860F;
+  --texto:#1B1E24;
+  --cinza:#5C6270;
+  --linha:#D6D6CE;
+  --linha-escura:#2E4570;
+  --max:1120px;
+  --col:34rem;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--papel-fundo);color:var(--texto);
+  font-family:Spectral,Georgia,"Times New Roman",serif;
+  font-size:17px;line-height:1.62;-webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,.ui{font-family:Archivo,"Helvetica Neue",Arial,sans-serif}
+h1,h2,h3{margin:0;line-height:1.12;letter-spacing:-.015em;font-weight:700}
+p{margin:0 0 1.05rem}
+a{color:inherit}
+.env{max-width:var(--max);margin:0 auto;padding:0 1.6rem}
+.medida{max-width:var(--col)}
+
+/* ---------- cabeçalho ---------- */
+.topo{position:sticky;top:0;z-index:40;background:var(--tinta);border-bottom:1px solid var(--linha-escura)}
+.topo .env{display:flex;align-items:center;gap:1.6rem;height:64px}
+.marca{display:flex;align-items:center;text-decoration:none;flex:0 0 auto}
+.marca svg{height:30px;width:auto;display:block}
+.nav{margin-left:auto;display:flex;align-items:center;gap:1.5rem}
+.nav a{
+  font-family:Archivo,Arial,sans-serif;font-size:.86rem;font-weight:500;color:var(--azul-claro);
+  text-decoration:none;padding:.35rem 0;border-bottom:1px solid transparent;
+}
+.nav a:hover,.nav a:focus-visible{color:#fff;border-bottom-color:var(--ocre)}
+.nav .zap{
+  background:var(--ocre);color:var(--tinta);font-weight:700;border-radius:2px;
+  padding:.5rem .95rem;border-bottom:0;
+}
+.nav .zap:hover,.nav .zap:focus-visible{background:#D39D1F;color:var(--tinta);border-bottom-color:transparent}
+@media (max-width:720px){.nav .interno{display:none}.topo .env{gap:.8rem}}
+
+/* ---------- primeira tela ---------- */
+.capa{background:var(--tinta);color:#fff;padding:4.6rem 0 4.2rem;position:relative;overflow:hidden}
+.capa::after{
+  content:"";position:absolute;inset:auto 0 0 0;height:1px;background:var(--linha-escura);
+}
+.capa .env{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:3.4rem;align-items:start}
+.capa h1{font-size:clamp(2.15rem,4.6vw,3.35rem);color:#fff;max-width:16ch}
+.capa .sub{color:#C9D6EC;font-size:1.06rem;max-width:44ch;margin-top:1.4rem}
+.acoes{display:flex;flex-wrap:wrap;gap:.85rem;margin-top:2rem}
+.botao{
+  font-family:Archivo,Arial,sans-serif;font-size:.95rem;font-weight:700;text-decoration:none;
+  padding:.82rem 1.4rem;border-radius:2px;display:inline-block;
+}
+.botao.cheio{background:var(--ocre);color:var(--tinta)}
+.botao.cheio:hover,.botao.cheio:focus-visible{background:#D39D1F}
+.botao.vazio{border:1px solid #43608F;color:#D7E2F3}
+.botao.vazio:hover,.botao.vazio:focus-visible{border-color:var(--azul-claro);color:#fff}
+
+/* ficha de exemplo */
+.ficha{background:#1B2E4C;border:1px solid var(--linha-escura);border-radius:3px;padding:1.5rem 1.5rem 1.2rem}
+.ficha .rotulo{
+  font-family:Archivo,Arial,sans-serif;font-size:.72rem;font-weight:600;color:#8FA7CC;
+  letter-spacing:.02em;margin-bottom:1.1rem;display:block;
+}
+.ficha dl{margin:0;display:grid;grid-template-columns:1fr;gap:.9rem}
+.ficha dt{font-family:Archivo,Arial,sans-serif;font-size:.73rem;color:#8FA7CC;margin-bottom:.15rem}
+.ficha dd{margin:0;font-size:.95rem;line-height:1.42;color:#EAF0F9}
+.ficha .destaque{
+  margin-top:1.25rem;padding-top:1.1rem;border-top:1px dashed #3A5580;
+  display:flex;justify-content:space-between;align-items:baseline;gap:1rem;flex-wrap:wrap;
+}
+.ficha .valor{font-family:Archivo,Arial,sans-serif;font-size:1.35rem;font-weight:700;color:#fff}
+.ficha .prazo{
+  font-family:Archivo,Arial,sans-serif;font-size:.82rem;font-weight:600;color:var(--tinta);
+  background:var(--ocre);padding:.3rem .6rem;border-radius:2px;
+}
+@media (max-width:900px){
+  .capa .env{grid-template-columns:1fr;gap:2.6rem}
+  .capa{padding:3.2rem 0 3rem}
+}
+
+/* ---------- seções ---------- */
+section{padding:4.6rem 0}
+.claro{background:var(--papel-fundo)}
+.papel{background:var(--papel)}
+.cabeca{max-width:38rem;margin-bottom:2.8rem}
+.cabeca h2{font-size:clamp(1.6rem,3vw,2.1rem);color:var(--navy)}
+.cabeca p{margin-top:.9rem;color:var(--cinza)}
+
+/* dois perfis */
+.perfis{display:grid;grid-template-columns:1fr 1fr;gap:2.6rem}
+.perfil h3{font-size:1.18rem;color:var(--navy);margin-bottom:.55rem}
+.perfil > p{color:var(--cinza);font-size:.99rem}
+.perfil ul{list-style:none;margin:1.1rem 0 0;padding:0}
+.perfil li{position:relative;padding-left:1.4rem;margin-bottom:.6rem;font-size:.97rem;line-height:1.5}
+.perfil li::before{
+  content:"";position:absolute;left:0;top:.62em;width:.5rem;height:1px;background:var(--azul);
+}
+.perfil.b li::before{background:var(--ocre)}
+@media (max-width:760px){.perfis{grid-template-columns:1fr;gap:2.2rem}}
+
+/* etapas — sequência real do trabalho */
+.etapas{list-style:none;margin:0;padding:0;counter-reset:etapa;border-top:1px solid var(--linha)}
+.etapas li{
+  counter-increment:etapa;border-bottom:1px solid var(--linha);
+  display:grid;grid-template-columns:4.5rem minmax(0,13rem) minmax(0,1fr);gap:1.6rem;
+  padding:1.55rem 0;align-items:start;
+}
+.etapas li::before{
+  content:counter(etapa,decimal-leading-zero);
+  font-family:Archivo,Arial,sans-serif;font-size:.92rem;font-weight:700;color:var(--ocre);
+  padding-top:.15rem;
+}
+.etapas h3{font-size:1.05rem;color:var(--navy)}
+.etapas p{margin:0;color:var(--cinza);font-size:.98rem}
+@media (max-width:760px){
+  .etapas li{grid-template-columns:2.6rem 1fr;gap:.9rem .8rem}
+  .etapas p{grid-column:2}
+}
+
+/* honorários */
+.honorarios{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,19rem);gap:3.2rem;align-items:start}
+.honorarios ul{list-style:none;margin:0;padding:0}
+.honorarios li{border-bottom:1px solid var(--linha);padding:1rem 0}
+.honorarios li:first-child{border-top:1px solid var(--linha)}
+.honorarios li b{font-family:Archivo,Arial,sans-serif;font-size:.98rem;color:var(--navy);display:block;margin-bottom:.2rem;font-weight:600}
+.honorarios li span{color:var(--cinza);font-size:.96rem}
+.conduta{background:var(--navy);color:#DCE6F5;padding:1.6rem;border-radius:3px;font-size:.95rem;line-height:1.55}
+.conduta h3{font-size:1rem;color:#fff;margin-bottom:.6rem}
+.conduta p:last-child{margin-bottom:0}
+@media (max-width:860px){.honorarios{grid-template-columns:1fr;gap:2.2rem}}
+
+/* sobre */
+.sobre{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,20rem);gap:3.2rem;align-items:start}
+.assinatura{border-left:2px solid var(--ocre);padding-left:1.2rem}
+.assinatura strong{font-family:Archivo,Arial,sans-serif;font-size:1.08rem;color:var(--navy);display:block}
+.assinatura span{color:var(--cinza);font-size:.94rem}
+.sobre h2{font-size:clamp(1.6rem,3vw,2.1rem);color:var(--navy);margin-bottom:1.3rem}
+@media (max-width:860px){.sobre{grid-template-columns:1fr;gap:2rem}}
+
+/* contato */
+.contato{background:var(--tinta);color:#fff}
+.contato h2{color:#fff;font-size:clamp(1.6rem,3vw,2.1rem)}
+.contato p{color:#C9D6EC}
+.intro-contato{margin-top:1rem}
+.contato .env{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,22rem);gap:3.2rem;align-items:start}
+.canais{list-style:none;margin:0;padding:0}
+.canais li{border-top:1px solid var(--linha-escura);padding:1rem 0}
+.canais li:last-child{border-bottom:1px solid var(--linha-escura)}
+.canais dt{font-family:Archivo,Arial,sans-serif;font-size:.73rem;color:#8FA7CC;margin-bottom:.2rem}
+.canais dd{margin:0;font-size:1.02rem}
+.canais a{color:#fff;text-decoration:none;border-bottom:1px solid #43608F}
+.canais a:hover,.canais a:focus-visible{border-bottom-color:var(--ocre)}
+@media (max-width:860px){.contato .env{grid-template-columns:1fr;gap:2.2rem}}
+
+/* rodapé */
+footer{background:var(--tinta);color:#8FA7CC;padding:2.4rem 0 3rem;border-top:1px solid var(--linha-escura);font-size:.88rem}
+footer .env{display:flex;flex-wrap:wrap;gap:1.6rem;align-items:flex-end;justify-content:space-between}
+footer svg{height:34px;width:auto;display:block;margin-bottom:.7rem}
+footer p{margin:0 0 .25rem}
+footer .direita{text-align:right}
+@media (max-width:620px){footer .env{flex-direction:column;align-items:flex-start}footer .direita{text-align:left}}
+
+/* acessibilidade e movimento */
+a:focus-visible,button:focus-visible{outline:2px solid var(--ocre);outline-offset:3px}
+.pular{position:absolute;left:-9999px}
+.pular:focus{left:1rem;top:.6rem;z-index:60;background:var(--ocre);color:var(--tinta);padding:.6rem 1rem;border-radius:2px}
+.entra{opacity:0;transform:translateY(10px);animation:sobe .7s cubic-bezier(.2,.7,.3,1) forwards}
+.entra.d1{animation-delay:.08s}.entra.d2{animation-delay:.16s}.entra.d3{animation-delay:.26s}
+@keyframes sobe{to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .entra{animation:none;opacity:1;transform:none}
+}
+</style>
 </head>
-<body class="font-sans text-gray-800 bg-gray-50 flex flex-col min-h-screen">
+<body>
+<a class="pular" href="#conteudo">Ir para o conteúdo</a>
 
-    <!-- HEADER / NAVEGAÇÃO -->
-    <header class="bg-navy text-white sticky top-0 z-50 shadow-lg">
-        <div class="max-w-7xl mx-auto px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20">
-                <!-- Logo -->
-                <div class="flex-shrink-0">
-                    <a href="#" class="text-3xl font-extrabold tracking-tight">AIR<span class="text-accent">9</span></a>
-                </div>
-                <!-- Menu Desktop -->
-                <nav class="hidden md:block">
-                    <ul class="flex space-x-8">
-                        <li><a href="#sobre" class="text-gray-300 hover:text-white font-medium transition-colors">Sobre</a></li>
-                        <li><a href="#servicos" class="text-gray-300 hover:text-white font-medium transition-colors">Serviços</a></li>
-                        <li><a href="#contato" class="text-gray-300 hover:text-white font-medium transition-colors">Contato</a></li>
-                    </ul>
-                </nav>
-                <!-- CTA Header -->
-                <div class="hidden md:block">
-                    <a href="#contato" class="border border-gray-500 hover:border-white text-white px-5 py-2 rounded transition-colors font-medium">Área do Cliente</a>
-                </div>
-            </div>
+<header class="topo">
+  <div class="env">
+    <a class="marca" href="#" aria-label="Air9, início">
+      <svg viewBox="0 0 100 75" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Air9">
+        <text x="0" y="44" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="bold" fill="#FFFFFF">Air</text>
+        <text x="63.3" y="44" font-family="Arial, Helvetica, sans-serif" font-size="54" font-weight="bold" fill="#AFC3E4">9</text>
+        <path d="M94.3 49 C 82.3 71, 38.3 71, 2 63" fill="none" stroke="#AFC3E4" stroke-width="4" stroke-linecap="round"/>
+      </svg>
+    </a>
+    <nav class="nav">
+      <a class="interno" href="#quem">Para quem é</a>
+      <a class="interno" href="#como">Como funciona</a>
+      <a class="interno" href="#honorarios">Honorários</a>
+      <a class="zap" data-zap href="#contato">WhatsApp</a>
+    </nav>
+  </div>
+</header>
+
+<main id="conteudo">
+
+  <section class="capa">
+    <div class="env">
+      <div>
+        <h1 class="entra">Sua empresa pode vender para prefeitura. Falta quem cuide do processo.</h1>
+        <p class="sub entra d1">Assessoria em licitações para quem vende bem no mercado privado e perde edital por certidão vencida, prazo estourado ou proposta feita às pressas. Eu cuido de tudo entre o edital e o pagamento. Você entrega o produto.</p>
+        <div class="acoes entra d2">
+          <a class="botao cheio" data-zap href="#contato">Falar comigo no WhatsApp</a>
+          <a class="botao vazio" href="#como">Ver como funciona</a>
         </div>
-    </header>
+      </div>
 
-    <!-- HERO SECTION -->
-    <section class="relative bg-navyLight border-b border-lead/30">
-        <!-- Overlay Gradiente para profundidade -->
-        <div class="absolute inset-0 bg-gradient-to-br from-navy to-navyLight z-0"></div>
-        <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 py-32 lg:py-40 flex flex-col items-center text-center">
-            <span class="text-accent font-semibold tracking-wider uppercase text-sm mb-4">Estratégia e Alta Performance</span>
-            <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-6 max-w-4xl">
-                Inteligência e Domínio em <br/> <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-accent">Negócios Governamentais</span>
-            </h1>
-            <p class="text-lg md:text-xl text-gray-300 mb-10 max-w-2xl font-light">
-                Maximizamos suas chances de sucesso em licitações e contratos públicos através de inteligência de dados, análise técnica avançada e assessoria estratégica contínua.
-            </p>
-            <!-- Call to Action apontando para o WhatsApp -->
-            <a href="https://wa.me/5500000000000?text=Olá,%20gostaria%20de%20falar%20com%20um%20especialista%20da%20Air9." target="_blank" class="bg-accent hover:bg-accentHover text-white text-lg font-semibold py-4 px-10 rounded shadow-lg shadow-blue-900/50 transition-all duration-300 hover:scale-105 flex items-center gap-3">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z" />
-                </svg>
-                Fale com um Especialista
-            </a>
+      <aside class="ficha entra d3" aria-label="Exemplo de oportunidade mapeada">
+        <span class="rotulo">Exemplo de oportunidade mapeada</span>
+        <dl>
+          <div><dt>Órgão</dt><dd data-ex="orgao">Prefeitura Municipal de Camaçari</dd></div>
+          <div><dt>Objeto</dt><dd data-ex="objeto">Registro de preços — material de construção para manutenção de escolas</dd></div>
+          <div><dt>Modalidade</dt><dd data-ex="modalidade">Pregão eletrônico · registro de preços 12 meses</dd></div>
+        </dl>
+        <div class="destaque">
+          <span class="valor" data-ex="valor">R$ 184.500,00</span>
+          <span class="prazo" data-ex="prazo">11 dias para a sessão</span>
         </div>
-    </section>
+      </aside>
+    </div>
+  </section>
 
-    <!-- SOBRE NÓS -->
-    <section id="sobre" class="py-24 bg-white">
-        <div class="max-w-7xl mx-auto px-6 lg:px-8 flex flex-col md:flex-row items-center gap-16">
-            <div class="w-full md:w-1/2">
-                <div class="w-20 h-1 bg-accent mb-6"></div>
-                <h2 class="text-3xl md:text-4xl font-bold text-navy mb-6">Autoridade que conecta sua empresa ao Setor Público</h2>
-                <p class="text-gray-600 text-lg leading-relaxed mb-6">
-                    A <strong class="text-navy font-semibold">Air9 Assessoria</strong> nasce com o propósito de transformar a forma como empresas privadas se relacionam com a administração pública. Unimos agilidade operacional e profunda inteligência de dados para identificar as melhores oportunidades.
-                </p>
-                <p class="text-gray-600 text-lg leading-relaxed">
-                    Nossa equipe atua na vanguarda das compras governamentais, garantindo que nossos clientes participem de certames com segurança jurídica, precisão técnica e altíssima competitividade no cenário nacional.
-                </p>
-            </div>
-            <!-- Elemento visual abstrato/corporativo -->
-            <div class="w-full md:w-1/2 bg-gray-100 rounded-xl p-8 border border-gray-200 relative overflow-hidden h-80 flex items-center justify-center">
-                <div class="absolute -right-10 -top-10 w-40 h-40 bg-accent opacity-10 rounded-full blur-2xl"></div>
-                <div class="absolute -left-10 -bottom-10 w-60 h-60 bg-lead opacity-10 rounded-full blur-3xl"></div>
-                <div class="z-10 text-center">
-                    <span class="block text-5xl font-extrabold text-navy mb-2">+ R$ 0Bi</span>
-                    <span class="text-gray-500 font-medium uppercase tracking-widest text-sm">Contratos Mapeados</span>
-                </div>
-            </div>
+  <section id="quem" class="claro">
+    <div class="env">
+      <div class="cabeca">
+        <h2>Duas situações, dois trabalhos diferentes</h2>
+        <p>O ponto de partida muda tudo: o que sua empresa precisa hoje não é o mesmo que precisa uma empresa que já disputa há anos.</p>
+      </div>
+      <div class="perfis">
+        <div class="perfil a">
+          <h3>Você já participa, mas perde mais do que deveria</h3>
+          <p>Não falta preço. Falta processo. Os motivos se repetem:</p>
+          <ul>
+            <li>Certidão vencida justo no dia da habilitação</li>
+            <li>Proposta cadastrada na última hora, com erro de unidade ou de marca</li>
+            <li>Lance dado no calor da sessão, abaixo do que dá lucro</li>
+            <li>Prazo de recurso perdido por não ter manifestado intenção na hora</li>
+            <li>Empenho emitido, nota atestada e ninguém cobrou o pagamento</li>
+          </ul>
         </div>
-    </section>
-
-    <!-- NOSSOS SERVIÇOS -->
-    <section id="servicos" class="py-24 bg-gray-50 border-t border-gray-200">
-        <div class="max-w-7xl mx-auto px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-navy mb-4">Nossas Soluções</h2>
-                <p class="text-gray-600 text-lg">Metodologia corporativa desenhada para garantir performance e segurança do mapeamento à assinatura do contrato.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                
-                <!-- Card 1 -->
-                <div class="bg-white p-10 rounded-xl border border-gray-100 card-hover">
-                    <div class="w-14 h-14 bg-blue-50 rounded-lg flex items-center justify-center mb-6 text-accent">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-bold text-navy mb-4">Mapeamento de Licitações e Dispensas</h3>
-                    <p class="text-gray-600 leading-relaxed">
-                        Monitoramento ativo diário de diários oficiais, portais de compras e sistemas eletrônicos para capturar oportunidades que se alinham perfeitamente ao seu CNAE e capacidade de fornecimento.
-                    </p>
-                </div>
-
-                <!-- Card 2 -->
-                <div class="bg-white p-10 rounded-xl border border-gray-100 card-hover">
-                    <div class="w-14 h-14 bg-blue-50 rounded-lg flex items-center justify-center mb-6 text-accent">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-bold text-navy mb-4">Assessoria B2B para o Mercado Público</h3>
-                    <p class="text-gray-600 leading-relaxed">
-                        Estruturação comercial, jurídica e contábil da sua empresa para atuar no B2G (Business to Government), reduzindo riscos e profissionalizando sua participação nas vendas governamentais.
-                    </p>
-                </div>
-
-                <!-- Card 3 -->
-                <div class="bg-white p-10 rounded-xl border border-gray-100 card-hover">
-                    <div class="w-14 h-14 bg-blue-50 rounded-lg flex items-center justify-center mb-6 text-accent">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-bold text-navy mb-4">Inteligência e Análise de Editais</h3>
-                    <p class="text-gray-600 leading-relaxed">
-                        Leitura crítica minuciosa, elaboração de pedidos de esclarecimento, impugnações e formulação da estratégia de precificação baseada no histórico de contratações do órgão licitante.
-                    </p>
-                </div>
-
-            </div>
+        <div class="perfil b">
+          <h3>Você nunca participou e não sabe por onde começar</h3>
+          <p>A empresa tem produto e preço. Falta arrumar a casa antes da primeira disputa:</p>
+          <ul>
+            <li>CNAE compatível com o objeto e enquadramento como ME ou EPP</li>
+            <li>Certidões federais, estaduais, municipais, FGTS e trabalhista em dia</li>
+            <li>Balanço patrimonial registrado, que o edital vai exigir</li>
+            <li>Atestado de capacidade técnica dos clientes que você já atende</li>
+            <li>Cadastro no SICAF e nos portais que os órgãos da região usam</li>
+          </ul>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- FOOTER -->
-    <footer id="contato" class="bg-navy text-gray-400 border-t border-navyLight mt-auto">
-        <div class="max-w-7xl mx-auto px-6 lg:px-8 py-12">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
-                
-                <!-- Brand / Logo Footer -->
-                <div>
-                    <span class="text-2xl font-extrabold tracking-tight text-white">AIR<span class="text-accent">9</span></span>
-                    <p class="mt-2 text-sm text-gray-500">Assessoria, Soluções e Negócios Governamentais</p>
-                </div>
-                
-                <!-- Informações de Contato -->
-                <div class="text-sm">
-                    <p class="mb-2"><strong class="text-gray-300">Email:</strong> <a href="mailto:contato@air9.com.br" class="hover:text-white transition-colors">contato@air9.com.br</a></p>
-                    <p><strong class="text-gray-300">CNPJ:</strong> 00.000.000/0001-00</p>
-                </div>
-                
-                <!-- CTA Footer -->
-                <div class="md:text-right">
-                    <a href="https://wa.me/5500000000000" target="_blank" class="inline-block bg-transparent border border-gray-500 hover:border-white hover:text-white text-gray-300 px-6 py-2 rounded transition-all text-sm font-medium">
-                        Falar no WhatsApp
-                    </a>
-                </div>
-            </div>
-            
-            <!-- Linha de Copyright -->
-            <div class="mt-10 pt-8 border-t border-navyLight text-center text-xs text-gray-600">
-                &copy; 2026 Air9 Assessoria. Todos os direitos reservados.
-            </div>
+  <section id="como" class="papel">
+    <div class="env">
+      <div class="cabeca">
+        <h2>Como funciona, do edital ao pagamento</h2>
+        <p>É uma sequência, e cada etapa só começa quando a anterior está resolvida. Você acompanha todas e autoriza por escrito o que precisa de autorização.</p>
+      </div>
+      <ol class="etapas">
+        <li>
+          <h3>Radar</h3>
+          <p>Monitoramento diário do Portal Nacional de Contratações Públicas, dos portais de compras e dos diários oficiais, filtrado pelo que a sua empresa realmente fornece e pela região que você consegue atender.</p>
+        </li>
+        <li>
+          <h3>Análise</h3>
+          <p>Leitura do edital inteiro, cotação com fornecedor, cálculo do custo real e comparação com o preço homologado nas últimas disputas do mesmo órgão. Dessa etapa saem dois números: o preço-alvo e o preço mínimo. Também digo quando não vale a pena participar.</p>
+        </li>
+        <li>
+          <h3>Habilitação</h3>
+          <p>Certidões, balanço, atestados, SICAF e cadastro nos portais conferidos e renovados antes da disputa, não no dia dela. É aqui que a maioria das empresas perde o que já tinha ganhado.</p>
+        </li>
+        <li>
+          <h3>Disputa</h3>
+          <p>Proposta cadastrada com antecedência, sessão acompanhada do início ao fim, lances até o limite que você autorizou por escrito e nem um centavo abaixo. Recurso quando cabe, contrarrazões quando é contra você.</p>
+        </li>
+        <li>
+          <h3>Contrato e pagamento</h3>
+          <p>Assinatura, empenho, entrega, nota fiscal atestada e cobrança acompanhada até o dinheiro cair na conta. Em ata de registro de preços esse ciclo se repete a cada pedido, durante um ano inteiro.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="honorarios" class="claro">
+    <div class="env">
+      <div class="cabeca">
+        <h2>Como eu cobro</h2>
+        <p>Sem mensalidade obrigatória e sem surpresa no meio do caminho. O combinado fica em contrato assinado antes de eu cadastrar a primeira proposta.</p>
+      </div>
+      <div class="honorarios">
+        <ul>
+          <li>
+            <b>Percentual sobre o que você recebe</b>
+            <span>O honorário incide sobre cada pagamento que o órgão efetivamente credita na sua conta, na mesma proporção. Se o dinheiro não entra, eu não cobro.</span>
+          </li>
+          <li>
+            <b>Percentual decrescente</b>
+            <span>Quanto maior o contrato, menor o percentual. O trabalho não dobra quando o valor dobra, e o preço acompanha isso.</span>
+          </li>
+          <li>
+            <b>Taxa de implantação para quem está começando</b>
+            <span>Se a empresa ainda não está apta a licitar, há um valor único para deixar tudo pronto: certidões, balanço, atestados, cadastros e procuração. Em média de duas a quatro semanas.</span>
+          </li>
+          <li>
+            <b>Registro de preços conta a cada pedido</b>
+            <span>Em ata anual, o honorário incide sobre cada empenho emitido durante a vigência, porque o acompanhamento também continua o ano inteiro.</span>
+          </li>
+        </ul>
+        <div class="conduta">
+          <h3>Onde eu não vou</h3>
+          <p>Atuo exclusivamente pelos canais oficiais do certame: portal, sessão pública, pedido de esclarecimento, impugnação e recurso.</p>
+          <p>Não procuro pregoeiro, servidor ou secretário fora desses canais. Não combino preço nem divisão de lotes com concorrente. Não represento dois clientes no mesmo item da mesma disputa.</p>
+          <p>Isso protege você tanto quanto protege a mim: pela Lei 12.846, quem responde por ato contra a administração é a empresa.</p>
         </div>
-    </footer>
+      </div>
+    </div>
+  </section>
 
+  <section class="papel">
+    <div class="env sobre">
+      <div class="medida">
+        <h2>Quem está do outro lado</h2>
+        <p>Passei mais de dez anos vendendo material de construção para lojistas em toda a Bahia, no corpo a corpo: conheço o depósito, o estoque, a margem apertada, o frete que come o lucro e o pedido que não pode atrasar.</p>
+        <p>A Air9 aplica esse mesmo trabalho no cliente que mais compra no país e que a maioria das empresas da região ainda não atende: o setor público. Não é um mercado de sorte nem de influência. É um mercado de regra publicada, prazo marcado e processo bem executado.</p>
+        <p>Atendimento pessoal, sem intermediário e sem call center. Quando você liga, quem atende é quem opera a sua disputa.</p>
+      </div>
+      <div class="assinatura">
+        <strong data-cfg="responsavel">Diogo Reis</strong>
+        <span data-cfg="cargo">Diretor</span><br>
+        <span data-cfg="cidade">Camaçari, Bahia</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="contato" class="contato">
+    <div class="env">
+      <div>
+        <h2>Descubra se há oportunidade para o seu ramo agora</h2>
+        <p class="medida intro-contato">Me mande o CNPJ da sua empresa e o que ela fornece. Em até <span data-cfg="prazoResposta">24 horas</span> eu respondo dizendo se existe licitação aberta para esse ramo na sua região, com que valor e até quando dá para entrar. Essa primeira consulta não custa nada.</p>
+        <div class="acoes">
+          <a class="botao cheio" data-zap href="#">Mandar mensagem no WhatsApp</a>
+        </div>
+      </div>
+      <ul class="canais">
+        <li><dl><dt>WhatsApp</dt><dd><a data-zap href="#"><span data-cfg="telefoneFormatado">(71) 99999-9999</span></a></dd></dl></li>
+        <li><dl><dt>E-mail</dt><dd><a data-email href="#"><span data-cfg="email">diogo@air9.com.br</span></a></dd></dl></li>
+        <li><dl><dt>Atendimento</dt><dd><span data-cfg="regiao">Camaçari, Salvador, Feira de Santana e Região Metropolitana</span></dd></dl></li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="env">
+    <div>
+      <svg viewBox="0 0 100 75" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Air9">
+        <text x="0" y="44" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="bold" fill="#FFFFFF">Air</text>
+        <text x="63.3" y="44" font-family="Arial, Helvetica, sans-serif" font-size="54" font-weight="bold" fill="#AFC3E4">9</text>
+        <path d="M94.3 49 C 82.3 71, 38.3 71, 2 63" fill="none" stroke="#AFC3E4" stroke-width="4" stroke-linecap="round"/>
+      </svg>
+      <p data-cfg="razaoSocial">Air9 Soluções e Negócios Governamentais</p>
+      <p data-cnpj>CNPJ 00.000.000/0001-00</p>
+    </div>
+    <div class="direita">
+      <p>Assessoria em licitações e negócios governamentais</p>
+      <p><span data-ano>2026</span> · <span data-cfg="cidade">Camaçari, Bahia</span></p>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  const C = window.CONFIG || {};
+
+  // texto simples nos elementos marcados
+  const so = (n) => document.querySelectorAll('[data-cfg="' + n + '"]');
+  const por = (n, v) => { if (v) so(n).forEach(e => e.textContent = v); };
+
+  // telefone formatado a partir do número do WhatsApp
+  const formata = (num) => {
+    const d = String(num || '').replace(/\D/g, '').replace(/^55/, '');
+    if (d.length === 11) return '(' + d.slice(0, 2) + ') ' + d.slice(2, 7) + '-' + d.slice(7);
+    if (d.length === 10) return '(' + d.slice(0, 2) + ') ' + d.slice(2, 6) + '-' + d.slice(6);
+    return num || '';
+  };
+  C.telefoneFormatado = formata(C.whatsapp);
+
+  ['responsavel', 'cargo', 'cidade', 'razaoSocial', 'email', 'regiao', 'prazoResposta', 'telefoneFormatado']
+    .forEach(k => por(k, C[k]));
+
+  // links
+  const zap = 'https://wa.me/' + String(C.whatsapp || '').replace(/\D/g, '') +
+              (C.whatsappTexto ? '?text=' + encodeURIComponent(C.whatsappTexto) : '');
+  document.querySelectorAll('[data-zap]').forEach(a => {
+    a.href = zap; a.target = '_blank'; a.rel = 'noopener';
+  });
+  document.querySelectorAll('[data-email]').forEach(a => { a.href = 'mailto:' + (C.email || ''); });
+
+  // exemplo da primeira tela
+  if (C.exemplo) {
+    Object.keys(C.exemplo).forEach(k => {
+      document.querySelectorAll('[data-ex="' + k + '"]').forEach(e => e.textContent = C.exemplo[k]);
+    });
+  }
+
+  // CNPJ: some se estiver vazio
+  const linhaCnpj = document.querySelector('[data-cnpj]');
+  if (linhaCnpj) {
+    if (C.cnpj) linhaCnpj.textContent = 'CNPJ ' + C.cnpj;
+    else linhaCnpj.remove();
+  }
+
+  const ano = document.querySelector('[data-ano]');
+  if (ano) ano.textContent = new Date().getFullYear();
+})();
+</script>
 </body>
 </html>
